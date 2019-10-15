@@ -1,0 +1,309 @@
+<div class="image"></div>
+
+<p-growl [(value)]="msgs"></p-growl>
+<nav class="navbar navbar-dark bg-light">
+  <!-- Navbar content -->
+
+  <div class="col-md-12">
+    <button
+      class="btn btn-lg btn-info text-white float-right"
+      (click)="openAdd(modal, 'Add')"
+    >
+      Add New Organization
+    </button>
+    <ul class="nav justify-content-center items">
+      <span class="doctype"><h1>Organization</h1></span>
+    </ul>
+  </div>
+</nav>
+<br /><br />
+<div class="container" id="search">
+  <form class="form-inline mr-auto ">
+    <input
+      class="form-control "
+      type="text"
+      placeholder="Search for Organization info"
+      aria-label="Search"
+      name="n1"
+      [(ngModel)]="searchstr"
+      id="search-box-round"
+    />
+  </form>
+</div>
+<br />
+<div class="main-container container-fluid">
+  <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+
+  <!-- <button class="btn btn-lg btn-info text-white float-right"  (click)="openAdd(modal,'Add')">Add New
+  Organization</button> -->
+</div>
+<!--
+<div class="container">
+  <table class="table">
+    <thead>
+      <th>Index</th>
+      <th>Organization Name</th>
+      <th>Description</th>
+      <th>Active State</th>
+      <th id="text-align-right">Actions</th>
+    </thead>
+    <tbody>
+      <tr *ngFor=" let item of arr | paginate: config | grdFilter: { name: searchstr };  let i = index" >
+        <td>{{ item.id }}</td>
+        <td>{{ item.name | reversechar }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.isactive }}</td>
+        <td>
+          <button
+            class="btn btn-success"
+            (click)="openEdit(modal, 'Update', i, item)"
+          >
+            Edit
+          </button>
+          |
+          <button class="btn btn-danger" (click)="confirmDelete(item.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <pagination-controls
+      (pageChange)="pageChanged($event)"
+    ></pagination-controls>
+  </table>
+</div> -->
+
+<!-- <p-table
+  #dt
+  [value]="arr"
+  [paginator]="true"
+  [rows]="10"
+  [globalFilterFields]="['description']"
+  sortMode="multiple"
+>
+  <ng-template pTemplate="caption">
+    <div style="text-align: right">
+      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      <input
+        type="text"
+        pInputText
+        size="50"
+        placeholder="Global Filter"
+        (input)="dt.filterGlobal($event.target.value, 'contains')"
+        style="width:auto"
+      />
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th>Index</th>
+      <th>Organization Name</th>
+      <th>Description</th>
+      <th>Active State</th>
+      <th id="text-align-right">Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData>
+     <tr *ngFor=" let item of arr | paginate: config | grdFilter: { name: searchstr };  let i = index" >
+    <tr>
+      <td >{{ rowData.id }}</td>
+      <td >{{ rowData.name | reversechar }}</td>
+      <td >{{ rowData.description }}</td>
+      <td >{{ rowData.isactive }}</td>
+      <td>
+        <button
+          class="btn btn-success"
+          (click)="openEdit(modal, 'Update', rowData)"
+        >
+          Edit
+        </button>
+        |
+        <button class="btn btn-danger" (click)="confirmDelete(rowData.id)">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table> -->
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+
+
+<p-contextMenu [global]="true" [model]="items"></p-contextMenu>
+
+<p-table #dt [value]="arr" sortMode="multiple"  [paginator]="true"
+[rows]="10"  [globalFilterFields]="['description']"
+sortMode="multiple" [(contextMenuSelection)]="selectedCar"  [contextMenu]="cm" [columns]="cols" [reorderableColumns]="true">
+
+
+
+
+<ng-template pTemplate="caption">
+    <div style="text-align: right">
+      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      <input
+        type="text"
+        pInputText
+        size="50"
+        placeholder="Global Filter"
+        (input)="dt.filterGlobal($event.target.value, 'contains')"
+        style="width:auto"
+      />
+    </div>
+</ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+        <th style="width:2.5em"></th>
+
+
+      <th pReorderableColumn [pSortableColumn]="'id'">Index</th>
+      <th pReorderableColumn [pSortableColumn]="'name'">Organization Name</th>
+      <th pReorderableColumn [pSortableColumn]="'description'">Description</th>
+      <th>Active State</th>
+      <th id="text-align-right">Actions</th>
+    </tr>
+  </ng-template>
+
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i=index let-i=rowIndex let-rowIndex="rowIndex">
+      <tr [pContextMenuRow]="rowData" [pReorderableRow]="rowIndex">
+
+          <td> <i class="pi pi-mobile" pReorderableRowHandle></i></td>
+        <td>{{ rowData.id }}</td>
+        <!-- <td>{{ rowData.name | reversechar }}</td> -->
+        <td>{{ rowData.name }}</td>
+
+        <td >{{ rowData.description }}</td>
+        <td>{{ rowData.isactive }}</td>
+         <td><button class="btn btn-success"
+          (click)="openEdit(modal, 'Update',i, rowData)">
+          Edit
+        </button>
+
+        |
+        <button class="btn btn-danger" (click)="confirmDelete(rowData.id)">
+          Delete
+        </button></td>
+
+      </tr>
+    </ng-template>
+  <!-- </ng-template> -->
+</p-table>
+<p-contextMenu #cm [model]="items"></p-contextMenu>
+
+
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h4>Add/Update Organization</h4>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.dismiss('Cross click')"
+    >
+      Close
+      <!-- <span aria-hidden="true">Close</span> -->
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- <div class='col-6'> -->
+    <form (ngSubmit)="onFormSubmit(f)" #f="ngForm">
+      <table>
+        <tr>
+          <td>
+            <div class="form-group">
+              <label for="designation">Organization Name</label>
+              <div class="input-group">
+                <!-- <input  class="form-control" [(ngModel)]="name" placeholder="Name"
+                                      name="Name" required> -->
+                <input
+                  name="Name"
+                  [(ngModel)]="name"
+                  class="form-control"
+                  #Name="ngModel"
+                  type="text"
+                  placeholder="Enter name"
+                  required
+                />
+                <label
+                  class="alert alert-danger"
+                  *ngIf="Name.hasError('required') && !Name.pristine"
+                  >Name Required.</label
+                >
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-group">
+              <label for="description">Organization Description</label>
+              <div class="input-group">
+                <input
+                  name="Description"
+                  class="form-control"
+                  [(ngModel)]="description"
+                  placeholder="Enter desc"
+                  #Desc="ngModel"
+                  type="text"
+                  required
+                />
+                <label
+                  class="alert alert-danger"
+                  *ngIf="Desc.hasError('required') && !Desc.pristine"
+                  >Description is Required.</label
+                >
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-group">
+              <label for="isactive">Active State</label>
+              <div class="input-group">
+                <input
+                  name="Isactive"
+                  class="form-control"
+                  [(ngModel)]="isactive"
+                  placeholder="Active state"
+                  #Act="ngModel"
+                  type="text"
+                  required
+                />
+                <label
+                  class="alert alert-danger"
+                  *ngIf="Act.hasError('required') && !Act.pristine"
+                  >activity Required.</label
+                >
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark">
+          {{ selectedOrganizationOption }} Organization
+        </button>
+      </div>
+    </form>
+  </div>
+  <!-- </div> -->
+</ng-template>
+<!-- <p-table [columns]="cols" [value]="arr"     [(contextMenuSelection)]="selectedCar" [contextMenu]="cm">
+  <ng-template pTemplate="header" let-columns>
+      <tr>
+          <th *ngFor="let col of columns">
+              {{col.header}}
+          </th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pContextMenuRow]="rowData">
+          <td *ngFor="let col of columns">
+              {{rowData[col.field]}}
+          </td>
+      </tr>
+  </ng-template>
+</p-table> -->
+
+

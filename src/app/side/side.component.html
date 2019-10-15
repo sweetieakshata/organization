@@ -1,0 +1,22 @@
+
+
+  <p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
+      <ul class="nav flex-column">
+
+      <li class="nav-item">
+      <a class="nav-link active active-class" [routerLink]="['/contact']" routerLinkActive="router-link-active" ><i class="fa fa-phone-square-alt"></i><h5>Contact</h5></a>
+      </li>
+
+      <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/about']" routerLinkActive="router-link-active" ><h5>About us</h5></a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="#"><h5>Settings</h5></a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link disabled" href="#"><h5>Disabled</h5></a>
+      </li>
+      </ul>
+  </p-sidebar>
+
+  <app-menu (sidebar)=click()></app-menu>
